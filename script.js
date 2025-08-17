@@ -685,7 +685,7 @@ function closeVideoModal() {
 function togglePlayPause() {
     const icon = document.getElementById('play-pause-icon');
 
-    if (videoPlayin`g) {
+    if (videoPlaying) {
         // Pause
         icon.className = 'fas fa-play text-lg ml-0.5';
         videoPlaying = false;
