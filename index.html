@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yayasan Accelero - Tingkatkan Literasi & Numerasi Indonesia</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Video Animation Styles */
+        .video-container {
+            position: relative;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .video-screen {
+            background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.05) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Animated background waves */
+        .video-screen::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                    radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                    radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+                    radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.3) 0%, transparent 50%);
+            animation: wave-move 6s ease-in-out infinite;
+        }
+
+        @keyframes wave-move {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.1) rotate(2deg); }
+        }
+
+        /* Play button animations */
+        .play-button {
+            position: relative;
+            z-index: 10;
+            transition: all 0.3s ease;
+            animation: pulse-button 2s ease-in-out infinite;
+        }
+
+        .play-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+        }
+
+        @keyframes pulse-button {
+            0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7); }
+            70% { box-shadow: 0 0 0 20px rgba(59, 130, 246, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
+        }
+
+        /* Floating particles animation */
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: float-up 8s linear infinite;
+        }
+
+        .particle:nth-child(1) { width: 6px; height: 6px; left: 10%; animation-delay: 0s; }
+        .particle:nth-child(2) { width: 4px; height: 4px; left: 20%; animation-delay: 1s; }
+        .particle:nth-child(3) { width: 8px; height: 8px; left: 30%; animation-delay: 2s; }
+        .particle:nth-child(4) { width: 5px; height: 5px; left: 70%; animation-delay: 3s; }
+        .particle:nth-child(5) { width: 7px; height: 7px; left: 80%; animation-delay: 4s; }
+        .particle:nth-child(6) { width: 3px; height: 3px; left: 90%; animation-delay: 5s; }
+
+        @keyframes float-up {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Video modal animations */
+        .video-modal {
+            animation: modal-appear 0.3s ease-out;
+        }
+
+        .video-modal-content {
+            animation: modal-slide-up 0.4s ease-out;
+        }
+
+        @keyframes modal-appear {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes modal-slide-up {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Floating cards animation */
+        .floating-card {
+            animation: float-card 3s ease-in-out infinite;
+        }
+
+        .floating-card:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .floating-card:nth-child(2) {
+            animation-delay: 1.5s;
+        }
+
+        @keyframes float-card {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Loading spinner for video */
+        .video-loading {
+            display: none;
+        }
+
+        .video-loading.show {
+            display: flex;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .spinner {
+            animation: spin 1s linear infinite;
+        }
+
+        /* Progress ring animation */
+        .progress-ring {
+            animation: rotate-ring 20s linear infinite;
+        }
+
+        @keyframes rotate-ring {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Text typing animation */
+        .typing-text::after {
+            content: '|';
+            animation: typing-cursor 1s infinite;
+        }
+
+        @keyframes typing-cursor {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+<!-- Navigation -->
+<nav class="bg-white shadow-sm fixed w-full top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+            <!-- Logo -->
+            <div class="flex items-center space-x-2">
+                <div class="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center">
+                    <span class="text-white font-bold text-sm">A</span>
+                </div>
+                <span class="font-bold text-xl text-gray-900">Accelero</span>
+            </div>
+
+            <!-- Desktop Navigation -->
+            <div class="hidden md:flex space-x-8">
+                <a href="#home" class="nav-link text-primary-600 bg-primary-50 px-3 py-2 rounded-md">Beranda</a>
+                <a href="#about" class="nav-link text-gray-700 hover:text-primary-600 px-3 py-2 rounded-md">Tentang</a>
+                <a href="#donate" class="nav-link text-gray-700 hover:text-primary-600 px-3 py-2 rounded-md">Donasi</a>
+                <a href="#volunteer" class="nav-link text-gray-700 hover:text-primary-600 px-3 py-2 rounded-md">Relawan</a>
+                <a href="#partnership" class="nav-link text-gray-700 hover:text-primary-600 px-3 py-2 rounded-md">Kemitraan</a>
+                <a href="#impact" class="nav-link text-gray-700 hover:text-primary-600 px-3 py-2 rounded-md">Dampak</a>
+            </div>
+
+            <!-- Language & CTA -->
+            <div class="hidden md:flex items-center space-x-4">
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-globe text-gray-500"></i>
+                    <button onclick="switchLanguage('id')" class="lang-btn active px-2 py-1 text-xs font-medium rounded">ID</button>
+                    <button onclick="switchLanguage('en')" class="lang-btn px-2 py-1 text-xs font-medium rounded">EN</button>
+                </div>
+                <button onclick="scrollToSection('donate')" class="bg-primary-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-primary-700">
+                    Donasi Sekarang
+                </button>
+            </div>
+
+            <!-- Mobile menu button -->
+            <button id="mobile-menu-btn" class="md:hidden p-2 rounded-md text-gray-700">
+                <i class="fas fa-bars w-6 h-6"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Navigation -->
+        <div id="mobile-menu" class="md:hidden hidden py-4 border-t">
+            <div class="flex flex-col space-y-2">
+                <a href="#home" class="nav-link-mobile px-3 py-2 rounded-md">Beranda</a>
+                <a href="#about" class="nav-link-mobile px-3 py-2 rounded-md">Tentang</a>
+                <a href="#donate" class="nav-link-mobile px-3 py-2 rounded-md">Donasi</a>
+                <a href="#volunteer" class="nav-link-mobile px-3 py-2 rounded-md">Relawan</a>
+                <a href="#partnership" class="nav-link-mobile px-3 py-2 rounded-md">Kemitraan</a>
+                <a href="#impact" class="nav-link-mobile px-3 py-2 rounded-md">Dampak</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<section id="home" class="pt-16 bg-gradient-to-br from-primary-600 via-primary-700 to-primary-800 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+                    <span class="hero-title">Tingkatkan Literasi & Numerasi Anak Indonesia</span>
+                </h1>
+                <p class="text-xl md:text-2xl text-primary-100 mb-8 max-w-2xl">
+                    <span class="hero-subtitle">Bergabung dengan Yayasan Accelero untuk mendukung program Teaching at the Right Level (TaRL) di sekolah-sekolah yang membutuhkan</span>
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-4 mb-12">
+                    <button onclick="scrollToSection('donate')" class="btn-primary bg-white text-primary-600 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-100 transition-colors">
+                        <span class="cta-donate">Donasi Sekarang</span>
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                    <button onclick="scrollToSection('volunteer')" class="border-2 border-white text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-white hover:text-primary-600 transition-colors">
+                        <span class="cta-volunteer">Jadi Relawan</span>
+                    </button>
+                </div>
+
+                <!-- Quick Stats -->
+                <div class="grid grid-cols-3 gap-8">
+                    <div>
+                        <div class="text-3xl font-bold">1,250+</div>
+                        <div class="text-primary-200"><span class="stat-students">Siswa Terbantu</span></div>
+                    </div>
+                    <div>
+                        <div class="text-3xl font-bold">25+</div>
+                        <div class="text-primary-200"><span class="stat-schools">Sekolah Mitra</span></div>
+                    </div>
+                    <div>
+                        <div class="text-3xl font-bold">85+</div>
+                        <div class="text-primary-200"><span class="stat-volunteers">Relawan Aktif</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="relative">
+                <!-- Hero Image -->
+                <div class="relative bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
+<!--                    <div class="aspect-video bg-gradient-to-br from-white/20 to-white/5 rounded-lg flex items-center justify-center">-->
+<!--                        <button class="w-20 h-20 bg-white text-primary-600 rounded-full flex items-center justify-center hover:bg-gray-100 transition-colors">-->
+<!--                            <i class="fas fa-play text-2xl ml-1"></i>-->
+<!--                        </button>-->
+<!--                    </div>-->
+<!--                    <p class="text-center mt-4 text-primary-100">-->
+<!--                        <span class="video-text">Tonton Video Program TaRL</span>-->
+<!--                    </p>-->
+                    <div class="video-container relative rounded-2xl p-8 border">
+                        <div class="video-screen aspect-video rounded-lg flex items-center justify-center relative">
+                            <!-- Floating particles -->
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+
+                            <!-- Progress ring around play button -->
+                            <div class="progress-ring absolute inset-0 flex items-center justify-center">
+                                <svg width="100" height="100" class="transform -rotate-90">
+                                    <circle cx="50" cy="50" r="45" stroke="rgba(255,255,255,0.2)" stroke-width="2" fill="none"/>
+                                    <circle cx="50" cy="50" r="45" stroke="rgba(255,255,255,0.6)" stroke-width="2" fill="none"
+                                            stroke-dasharray="283" stroke-dashoffset="85"/>
+                                </svg>
+                            </div>
+
+                            <!-- Animated play button -->
+                            <button onclick="playVideo()" class="play-button w-20 h-20 bg-white text-primary-600 rounded-full flex items-center justify-center hover:bg-gray-100 transition-colors">
+                                <i class="fas fa-play text-2xl ml-1"></i>
+                            </button>
+
+                            <!-- Loading state -->
+                            <div class="video-loading absolute inset-0 flex items-center justify-center bg-black bg-opacity-30 rounded-lg">
+                                <div class="text-center text-white">
+                                    <i class="fas fa-spinner spinner text-3xl mb-2"></i>
+                                    <p class="typing-text">Loading video</p>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-center mt-4 text-primary-100">
+                            <span class="video-text">Tonton Video Program TaRL</span>
+                        </p>
+                    </div>
+
+                </div>
+
+                <!-- Floating Cards -->
+                <div class="absolute -top-4 -left-4 bg-white text-gray-900 p-4 rounded-lg shadow-lg">
+                    <div class="text-2xl font-bold text-primary-600">Rp15K</div>
+                    <div class="text-sm"><span class="cost-text">per anak per program</span></div>
+                </div>
+                <div class="absolute -bottom-4 -right-4 bg-white text-gray-900 p-4 rounded-lg shadow-lg">
+                    <div class="text-2xl font-bold text-green-600">95%</div>
+                    <div class="text-sm"><span class="improvement-text">peningkatan kemampuan</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Video Modal -->
+<div id="video-modal" class="fixed inset-0 bg-black bg-opacity-75 z-50 hidden video-modal flex items-center justify-center">
+    <div class="video-modal-content bg-black rounded-lg max-w-4xl w-full mx-4 relative">
+        <button onclick="closeVideoModal()" class="absolute -top-10 right-0 text-white text-2xl hover:text-gray-300">
+            <i class="fas fa-times"></i>
+        </button>
+
+        <!-- Video Player -->
+        <div class="aspect-video bg-gray-900 rounded-lg flex items-center justify-center">
+            <div class="text-center text-white">
+                <div class="w-24 h-24 bg-primary-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-graduation-cap text-3xl"></i>
+                </div>
+                <h3 class="text-2xl font-bold mb-2">Program TaRL Demo</h3>
+                <p class="text-gray-300 mb-4">Lihat bagaimana metode Teaching at the Right Level<br>membantu anak-anak belajar dengan lebih efektif</p>
+
+                <!-- Simulated video controls -->
+                <div class="flex items-center justify-center space-x-4 mt-6">
+                    <button class="text-white hover:text-primary-400">
+                        <i class="fas fa-backward text-xl"></i>
+                    </button>
+                    <button onclick="togglePlayPause()" class="w-12 h-12 bg-primary-600 rounded-full flex items-center justify-center hover:bg-primary-700">
+                        <i id="play-pause-icon" class="fas fa-pause text-lg ml-0.5"></i>
+                    </button>
+                    <button class="text-white hover:text-primary-400">
+                        <i class="fas fa-forward text-xl"></i>
+                    </button>
+                </div>
+
+                <!-- Progress bar -->
+                <div class="mt-4 mx-8">
+                    <div class="flex justify-between text-sm text-gray-400 mb-1">
+                        <span id="current-time">0:00</span>
+                        <span>3:45</span>
+                    </div>
+                    <div class="w-full bg-gray-700 rounded-full h-1">
+                        <div id="video-progress" class="bg-primary-600 h-1 rounded-full" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Impact Stats -->
+<section class="py-16 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">
+                <span class="impact-title">Dampak Nyata Program Kami</span>
+            </h2>
+            <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                <span class="impact-desc">Sejak 2024, kami telah membantu ribuan anak Indonesia meningkatkan kemampuan literasi dan numerasi melalui metode Teaching at the Right Level</span>
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div class="bg-white rounded-xl p-8 shadow-sm hover:shadow-md transition-shadow">
+                <div class="w-12 h-12 rounded-lg bg-blue-100 text-blue-600 flex items-center justify-center mb-4">
+                    <i class="fas fa-users text-2xl"></i>
+                </div>
+                <div class="text-3xl font-bold text-gray-900 mb-2">1,250+</div>
+                <div class="font-semibold text-gray-900 mb-2"><span class="stat-label-1">Siswa Terbantu</span></div>
+                <div class="text-gray-600 text-sm"><span class="stat-desc-1">Anak-anak mendapat pembelajaran yang tepat</span></div>
+            </div>
+
+            <div class="bg-white rounded-xl p-8 shadow-sm hover:shadow-md transition-shadow">
+                <div class="w-12 h-12 rounded-lg bg-green-100 text-green-600 flex items-center justify-center mb-4">
+                    <i class="fas fa-school text-2xl"></i>
+                </div>
+                <div class="text-3xl font-bold text-gray-900 mb-2">25+</div>
+                <div class="font-semibold text-gray-900 mb-2"><span class="stat-label-2">Sekolah Mitra</span></div>
+                <div class="text-gray-600 text-sm"><span class="stat-desc-2">Sekolah yang mengimplementasikan TaRL</span></div>
+            </div>
+
+            <div class="bg-white rounded-xl p-8 shadow-sm hover:shadow-md transition-shadow">
+                <div class="w-12 h-12 rounded-lg bg-purple-100 text-purple-600 flex items-center justify-center mb-4">
+                    <i class="fas fa-chart-line text-2xl"></i>
+                </div>
+                <div class="text-3xl font-bold text-gray-900 mb-2">95%</div>
+                <div class="font-semibold text-gray-900 mb-2"><span class="stat-label-3">Peningkatan Kemampuan</span></div>
+                <div class="text-gray-600 text-sm"><span class="stat-desc-3">Rata-rata peningkatan literasi & numerasi</span></div>
+            </div>
+
+            <div class="bg-white rounded-xl p-8 shadow-sm hover:shadow-md transition-shadow">
+                <div class="w-12 h-12 rounded-lg bg-orange-100 text-orange-600 flex items-center justify-center mb-4">
+                    <i class="fas fa-hand-holding-heart text-2xl"></i>
+                </div>
+                <div class="text-3xl font-bold text-gray-900 mb-2">85+</div>
+                <div class="font-semibold text-gray-900 mb-2"><span class="stat-label-4">Relawan Aktif</span></div>
+                <div class="text-gray-600 text-sm"><span class="stat-desc-4">Mahasiswa dan profesional yang terlibat</span></div>
+            </div>
+        </div>
+
+        <!-- Funding Progress -->
+        <div class="mt-16 bg-white rounded-2xl p-8 shadow-sm">
+            <div class="text-center mb-8">
+                <h3 class="text-2xl font-bold text-gray-900 mb-2">
+                    <span class="funding-title">Target Fundraising Wave 1</span>
+                </h3>
+                <p class="text-gray-600">
+                    <span class="funding-desc">Rp 15,000,000 untuk mendukung 1,000 anak di 20 sekolah</span>
+                </p>
+            </div>
+
+            <div class="max-w-4xl mx-auto">
+                <div class="flex justify-between text-sm text-gray-600 mb-2">
+                    <span>Rp 0</span>
+                    <span>Rp 15,000,000</span>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-4 mb-4">
+                    <div class="bg-gradient-to-r from-primary-500 to-primary-600 h-4 rounded-full" style="width: 68%"></div>
+                </div>
+                <div class="text-center">
+                    <div class="text-2xl font-bold text-primary-600 mb-1">Rp 10,200,000</div>
+                    <div class="text-gray-600">
+                        <span class="funding-status">68% tercapai • 342 donor • 28 hari tersisa</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- About Section -->
+<section id="about" class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">
+                <span class="about-title">Bagaimana Program TaRL Bekerja</span>
+            </h2>
+            <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                <span class="about-desc">Teaching at the Right Level memastikan setiap anak belajar sesuai kemampuannya, bukan berdasarkan usia atau kelas</span>
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div class="text-center">
+                <div class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-bullseye text-2xl text-primary-600"></i>
+                </div>
+                <h3 class="font-semibold text-lg mb-2"><span class="step-1-title">Assessment Awal</span></h3>
+                <p class="text-gray-600"><span class="step-1-desc">Mengevaluasi kemampuan literasi dan numerasi setiap siswa</span></p>
+            </div>
+
+            <div class="text-center">
+                <div class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-book-open text-2xl text-primary-600"></i>
+                </div>
+                <h3 class="font-semibold text-lg mb-2"><span class="step-2-title">Kelompok Belajar</span></h3>
+                <p class="text-gray-600"><span class="step-2-desc">Membagi siswa berdasarkan kemampuan, bukan usia</span></p>
+            </div>
+
+            <div class="text-center">
+                <div class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-users text-2xl text-primary-600"></i>
+                </div>
+                <h3 class="font-semibold text-lg mb-2"><span class="step-3-title">Pembelajaran Aktif</span></h3>
+                <p class="text-gray-600"><span class="step-3-desc">Metode mengajar yang interaktif dan menyenangkan</span></p>
+            </div>
+
+            <div class="text-center">
+                <div class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-heart text-2xl text-primary-600"></i>
+                </div>
+                <h3 class="font-semibold text-lg mb-2"><span class="step-4-title">Evaluasi Berkala</span></h3>
+                <p class="text-gray-600"><span class="step-4-desc">Memantau kemajuan dan menyesuaikan pembelajaran</span></p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Donation Section -->
+<section id="donate" class="py-16 bg-gray-50">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">
+                <span class="donate-title">Pilih Cara Anda Membantu</span>
+            </h2>
+            <p class="text-lg text-gray-600">
+                <span class="donate-desc">Setiap donasi akan langsung berdampak pada pembelajaran anak-anak Indonesia</span>
+            </p>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow-sm p-8">
+            <!-- Project Selection -->
+            <div class="mb-8">
+                <label class="block text-sm font-medium text-gray-700 mb-3">
+                    <span class="project-label">Pilih Proyek</span>
+                </label>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="project-card border-2 border-gray-200 rounded-lg p-4 cursor-pointer hover:border-primary-500 transition-colors" onclick="selectProject('sorong')">
+                        <div class="flex items-center mb-2">
+                            <input type="radio" name="project" value="sorong" class="mr-3">
+                            <h4 class="font-semibold">SD Inpres 01 Sorong</h4>
+                        </div>
+                        <p class="text-sm text-gray-600 mb-2"><span class="project-desc-1">150 siswa membutuhkan program literasi dasar</span></p>
+                        <div class="text-xs text-gray-500">
+                            <span class="project-status-1">Dana terkumpul: Rp 2,400,000 / Rp 4,500,000</span>
+                        </div>
+                    </div>
+
+                    <div class="project-card border-2 border-gray-200 rounded-lg p-4 cursor-pointer hover:border-primary-500 transition-colors" onclick="selectProject('jayapura')">
+                        <div class="flex items-center mb-2">
+                            <input type="radio" name="project" value="jayapura" class="mr-3">
+                            <h4 class="font-semibold">SDN 05 Jayapura</h4>
+                        </div>
+                        <p class="text-sm text-gray-600 mb-2"><span class="project-desc-2">200 siswa membutuhkan program numerasi</span></p>
+                        <div class="text-xs text-gray-500">
+                            <span class="project-status-2">Dana terkumpul: Rp 3,200,000 / Rp 6,000,000</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Amount Selection -->
+            <div class="mb-8">
+                <label class="block text-sm font-medium text-gray-700 mb-3">
+                    <span class="amount-label">Jumlah Donasi</span>
+                </label>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+                    <button onclick="selectAmount(50000)" class="amount-btn border-2 border-gray-200 rounded-lg p-3 hover:border-primary-500 transition-colors">
+                        <div class="text-lg font-semibold">Rp50K</div>
+                        <div class="text-xs text-gray-600"><span class="amount-impact-1">3 anak, 1 bulan</span></div>
+                    </button>
+                    <button onclick="selectAmount(100000)" class="amount-btn border-2 border-gray-200 rounded-lg p-3 hover:border-primary-500 transition-colors">
+                        <div class="text-lg font-semibold">Rp100K</div>
+                        <div class="text-xs text-gray-600"><span class="amount-impact-2">6 anak, 1 bulan</span></div>
+                    </button>
+                    <button onclick="selectAmount(250000)" class="amount-btn border-2 border-gray-200 rounded-lg p-3 hover:border-primary-500 transition-colors">
+                        <div class="text-lg font-semibold">Rp250K</div>
+                        <div class="text-xs text-gray-600"><span class="amount-impact-3">15 anak, 1 bulan</span></div>
+                    </button>
+                    <button onclick="selectAmount(500000)" class="amount-btn border-2 border-gray-200 rounded-lg p-3 hover:border-primary-500 transition-colors">
+                        <div class="text-lg font-semibold">Rp500K</div>
+                        <div class="text-xs text-gray-600"><span class="amount-impact-4">1 anak, program penuh</span></div>
+                    </button>
+                </div>
+                <input type="number" id="custom-amount" placeholder="Atau masukkan jumlah lain" class="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-primary-500 focus:outline-none">
+            </div>
+
+            <!-- Frequency -->
+            <div class="mb-8">
+                <label class="block text-sm font-medium text-gray-700 mb-3">
+                    <span class="frequency-label">Frekuensi</span>
+                </label>
+                <div class="flex gap-4">
+                    <label class="flex items-center">
+                        <input type="radio" name="frequency" value="onetime" checked class="mr-2">
+                        <span class="frequency-onetime">Sekali</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="radio" name="frequency" value="monthly" class="mr-2">
+                        <span class="frequency-monthly">Bulanan</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Impact Preview -->
+            <div id="impact-preview" class="mb-8 p-4 bg-primary-50 rounded-lg border border-primary-200">
+                <p class="text-primary-800">
+                    <i class="fas fa-heart mr-2"></i>
+                    <span class="impact-text">Donasi Anda akan membantu anak-anak mendapat pendidikan yang berkualitas</span>
+                </p>
+            </div>
+
+            <!-- Motivation Question -->
+            <div class="mb-8">
+                <label class="block text-sm font-medium text-gray-700 mb-3">
+                    <span class="motivation-label">Apa alasan Anda membantu kami hari ini?</span>
+                </label>
+                <select class="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-primary-500 focus:outline-none">
+                    <option value=""><span class="motivation-placeholder">Pilih alasan...</span></option>
+                    <option value="education"><span class="motivation-1">Percaya pada pentingnya pendidikan</span></option>
+                    <option value="children"><span class="motivation-2">Ingin membantu anak-anak Indonesia</span></option>
+                    <option value="impact"><span class="motivation-3">Melihat dampak nyata program ini</span></option>
+                    <option value="csr"><span class="motivation-4">Program CSR perusahaan</span></option>
+                    <option value="other"><span class="motivation-5">Lainnya</span></option>
+                </select>
+            </div>
+
+            <!-- Message -->
+            <div class="mb-8">
+                <label class="block text-sm font-medium text-gray-700 mb-3">
+                    <span class="message-label">Tinggalkan Pesan (Opsional)</span>
+                </label>
+                <textarea rows="3" placeholder="Pesan semangat untuk siswa dan guru..." class="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-primary-500 focus:outline-none resize-none"></textarea>
+            </div>
+
+            <!-- Donate Button -->
+            <button onclick="processDonation()" class="w-full bg-primary-600 text-white py-4 px-6 rounded-lg text-lg font-semibold hover:bg-primary-700 transition-colors">
+                <i class="fas fa-heart mr-2"></i>
+                <span class="donate-button">Donasi Sekarang</span>
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- Volunteer Section -->
+<section id="volunteer" class="py-16 bg-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">
+                <span class="volunteer-title">Bergabung Sebagai Relawan</span>
+            </h2>
+            <p class="text-lg text-gray-600">
+                <span class="volunteer-desc">Bantu kami mengajarkan literasi dan numerasi langsung ke sekolah-sekolah</span>
+            </p>
+        </div>
+
+        <div class="bg-gray-50 rounded-2xl p-8">
+            <form id="volunteer-form" class="space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            <span class="form-name">Nama Lengkap</span>
+                        </label>
+                        <input type="text" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                        <input type="email" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            <span class="form-phone">No. Telefon</span>
+                        </label>
+                        <input type="tel" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            <span class="form-city">Kota</span>
+                        </label>
+                        <input type="text" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                        <span class="form-skills">Keahlian</span>
+                    </label>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                        <label class="flex items-center">
+                            <input type="checkbox" class="mr-2">
+                            <span class="skill-1">Mengajar Bahasa Indonesia</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" class="mr-2">
+                            <span class="skill-2">Mengajar Matematika</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" class="mr-2">
+                            <span class="skill-3">Pendampingan Siswa</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" class="mr-2">
+                            <span class="skill-4">Pelatihan Guru</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" class="mr-2">
+                            <span class="skill-5">Dokumentasi</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" class="mr-2">
+                            <span class="skill-6">Administrasi</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                        <span class="form-availability">Ketersediaan</span>
+                    </label>
+                    <select required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none">
+                        <option value=""><span class="availability-placeholder">Pilih ketersediaan...</span></option>
+                        <option value="weekend"><span class="availability-1">Akhir pekan</span></option>
+                        <option value="weekday"><span class="availability-2">Hari kerja</span></option>
+                        <option value="flexible"><span class="availability-3">Fleksibel</span></option>
+                        <option value="holiday"><span class="availability-4">Saat libur saja</span></option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                        <span class="form-experience">Pengalaman</span>
+                    </label>
+                    <textarea rows="4" placeholder="Ceritakan pengalaman mengajar atau bekerja dengan anak-anak..." class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none resize-none"></textarea>
+                </div>
+
+                <button type="submit" class="w-full bg-green-600 text-white py-4 px-6 rounded-lg text-lg font-semibold hover:bg-green-700 transition-colors">
+                    <i class="fas fa-user-plus mr-2"></i>
+                    <span class="volunteer-submit">Daftar Sebagai Relawan</span>
+                </button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- Partnership Section -->
+<section id="partnership" class="py-16 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">
+                <span class="partnership-title">Kemitraan Korporat</span>
+            </h2>
+            <p class="text-lg text-gray-600">
+                <span class="partnership-desc">Wujudkan program CSR yang berdampak nyata untuk pendidikan Indonesia</span>
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            <!-- Benefits -->
+            <div class="bg-white rounded-2xl p-8 shadow-sm">
+                <h3 class="text-2xl font-bold text-gray-900 mb-6">
+                    <span class="benefits-title">Manfaat Kemitraan</span>
+                </h3>
+                <div class="space-y-4">
+                    <div class="flex items-start space-x-3">
+                        <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                        <span class="benefit-1">Laporan dampak yang transparan dan terukur</span>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                        <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                        <span class="benefit-2">Sertifikat dan pengakuan kemitraan resmi</span>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                        <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                        <span class="benefit-3">Dokumentasi kegiatan berkualitas tinggi</span>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                        <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                        <span class="benefit-4">Akses ke data dan riset program pendidikan</span>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                        <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                        <span class="benefit-5">Kesempatan employee engagement</span>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                        <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                        <span class="benefit-6">Media coverage dan publikasi positif</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Partnership Form -->
+            <div class="bg-white rounded-2xl p-8 shadow-sm">
+                <h3 class="text-2xl font-bold text-gray-900 mb-6">
+                    <span class="partnership-form-title">Hubungi Kami</span>
+                </h3>
+                <form id="partnership-form" class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            <span class="company-name">Nama Perusahaan</span>
+                        </label>
+                        <input type="text" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none">
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                <span class="contact-name">Nama Kontak</span>
+                            </label>
+                            <input type="text" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                <span class="contact-position">Jabatan</span>
+                            </label>
+                            <input type="text" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                            <input type="email" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                <span class="contact-phone">No. Telefon</span>
+                            </label>
+                            <input type="tel" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            <span class="partnership-type">Jenis Kemitraan</span>
+                        </label>
+                        <select required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none">
+                            <option value=""><span class="partnership-placeholder">Pilih jenis kemitraan...</span></option>
+                            <option value="funding"><span class="partnership-funding">Pendanaan Program</span></option>
+                            <option value="employee"><span class="partnership-employee">Employee Volunteering</span></option>
+                            <option value="inkind"><span class="partnership-inkind">Donasi Barang/Jasa</span></option>
+                            <option value="longterm"><span class="partnership-longterm">Kemitraan Jangka Panjang</span></option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            <span class="partnership-message">Pesan</span>
+                        </label>
+                        <textarea rows="4" placeholder="Ceritakan tentang program CSR yang ingin Anda wujudkan..." class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none resize-none"></textarea>
+                    </div>
+
+                    <button type="submit" class="w-full bg-orange-600 text-white py-4 px-6 rounded-lg text-lg font-semibold hover:bg-orange-700 transition-colors">
+                        <i class="fas fa-handshake mr-2"></i>
+                        <span class="partnership-submit">Kirim Proposal</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Impact Section -->
+<section id="impact" class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">
+                <span class="impact-stories-title">Dampak Nyata Program TaRL</span>
+            </h2>
+            <p class="text-lg text-gray-600">
+                <span class="impact-stories-desc">Lihat bagaimana program kami mengubah kehidupan anak-anak Indonesia</span>
+            </p>
+        </div>
+
+        <!-- Success Stories -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+            <div class="bg-gray-50 rounded-2xl p-6">
+                <div class="text-center mb-4">
+                    <div class="w-20 h-20 bg-primary-100 rounded-full mx-auto mb-4 flex items-center justify-center">
+                        <i class="fas fa-user-graduate text-2xl text-primary-600"></i>
+                    </div>
+                    <h4 class="font-semibold text-lg">Sari, Kelas 3</h4>
+                    <p class="text-sm text-gray-600">SDN 01 Sorong</p>
+                </div>
+                <p class="text-gray-700 text-center">
+                    <span class="story-1">"Sekarang saya bisa membaca buku cerita sendiri. Program ini membuat belajar jadi menyenangkan!"</span>
+                </p>
+            </div>
+
+            <div class="bg-gray-50 rounded-2xl p-6">
+                <div class="text-center mb-4">
+                    <div class="w-20 h-20 bg-green-100 rounded-full mx-auto mb-4 flex items-center justify-center">
+                        <i class="fas fa-chalkboard-teacher text-2xl text-green-600"></i>
+                    </div>
+                    <h4 class="font-semibold text-lg">Bu Maya</h4>
+                    <p class="text-sm text-gray-600"><span class="teacher-position">Guru SDN 05 Jayapura</span></p>
+                </div>
+                <p class="text-gray-700 text-center">
+                    <span class="story-2">"Metode TaRL sangat membantu. Siswa belajar sesuai kemampuan mereka, hasilnya luar biasa."</span>
+                </p>
+            </div>
+
+            <div class="bg-gray-50 rounded-2xl p-6">
+                <div class="text-center mb-4">
+                    <div class="w-20 h-20 bg-orange-100 rounded-full mx-auto mb-4 flex items-center justify-center">
+                        <i class="fas fa-hands-helping text-2xl text-orange-600"></i>
+                    </div>
+                    <h4 class="font-semibold text-lg">Ahmad</h4>
+                    <p class="text-sm text-gray-600"><span class="volunteer-student">Relawan Mahasiswa UI</span></p>
+                </div>
+                <p class="text-gray-700 text-center">
+                    <span class="story-3">"Mengajar dengan program Accelero memberikan pengalaman yang sangat berharga bagi saya."</span>
+                </p>
+            </div>
+        </div>
+
+        <!-- Financial Transparency -->
+        <div class="bg-gray-50 rounded-2xl p-8">
+            <div class="text-center mb-8">
+                <h3 class="text-2xl font-bold text-gray-900 mb-2">
+                    <span class="transparency-title">Transparansi Keuangan</span>
+                </h3>
+                <p class="text-gray-600">
+                    <span class="transparency-desc">Laporan penggunaan dana untuk memastikan akuntabilitas program</span>
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-blue-600 mb-2">85%</div>
+                    <div class="text-sm text-gray-600"><span class="expense-program">Program Langsung</span></div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-green-600 mb-2">10%</div>
+                    <div class="text-sm text-gray-600"><span class="expense-admin">Administrasi</span></div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-orange-600 mb-2">3%</div>
+                    <div class="text-sm text-gray-600"><span class="expense-fundraising">Fundraising</span></div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-purple-600 mb-2">2%</div>
+                    <div class="text-sm text-gray-600"><span class="expense-reserve">Dana Cadangan</span></div>
+                </div>
+            </div>
+
+            <div class="mt-8 text-center">
+                <button class="bg-primary-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-primary-700 transition-colors">
+                    <i class="fas fa-download mr-2"></i>
+                    <span class="download-report">Download Laporan Lengkap</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-gray-900 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <!-- About -->
+            <div class="col-span-1 md:col-span-2">
+                <div class="flex items-center space-x-2 mb-4">
+                    <div class="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center">
+                        <span class="text-white font-bold text-sm">A</span>
+                    </div>
+                    <span class="font-bold text-xl">Accelero Foundation</span>
+                </div>
+                <p class="text-gray-300 mb-6 max-w-md">
+                    <span class="footer-about">Yayasan Accelero berkomitmen meningkatkan literasi dan numerasi dasar melalui program after-school berbasis TaRL.</span>
+                </p>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-gray-400 hover:text-primary-400 transition-colors">
+                        <i class="fab fa-facebook text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-primary-400 transition-colors">
+                        <i class="fab fa-instagram text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-primary-400 transition-colors">
+                        <i class="fab fa-twitter text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-primary-400 transition-colors">
+                        <i class="fab fa-linkedin text-xl"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Programs -->
+            <div>
+                <h3 class="font-semibold text-lg mb-4"><span class="footer-programs">Program</span></h3>
+                <ul class="space-y-2">
+                    <li><a href="#" class="text-gray-300 hover:text-primary-400 transition-colors"><span class="footer-program-1">Teaching at the Right Level</span></a></li>
+                    <li><a href="#" class="text-gray-300 hover:text-primary-400 transition-colors"><span class="footer-program-2">Perpustakaan Sekolah</span></a></li>
+                    <li><a href="#" class="text-gray-300 hover:text-primary-400 transition-colors"><span class="footer-program-3">Pelatihan Guru</span></a></li>
+                    <li><a href="#" class="text-gray-300 hover:text-primary-400 transition-colors"><span class="footer-program-4">Evaluasi & Riset</span></a></li>
+                </ul>
+            </div>
+
+            <!-- Contact -->
+            <div>
+                <h3 class="font-semibold text-lg mb-4"><span class="footer-contact">Kontak</span></h3>
+                <div class="space-y-3 text-gray-300">
+                    <div class="flex items-center space-x-2">
+                        <i class="fas fa-envelope"></i>
+                        <span>info@accelerofoundation.org</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <i class="fas fa-phone"></i>
+                        <span>+62 21 1234 5678</span>
+                    </div>
+                    <div class="flex items-start space-x-2">
+                        <i class="fas fa-map-marker-alt mt-1"></i>
+                        <span>Jakarta, Indonesia</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+            <p class="text-gray-400 text-sm">
+                <span class="footer-copyright">© 2025 Accelero Foundation. All rights reserved.</span>
+            </p>
+            <div class="flex space-x-6 mt-4 md:mt-0">
+                <a href="#" class="text-gray-400 hover:text-primary-400 text-sm transition-colors">
+                    <span class="footer-privacy">Privacy Policy</span>
+                </a>
+                <a href="#" class="text-gray-400 hover:text-primary-400 text-sm transition-colors">
+                    <span class="footer-terms">Terms of Service</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
